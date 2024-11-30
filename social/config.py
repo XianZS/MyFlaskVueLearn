@@ -1,6 +1,7 @@
 # 项目配置文件
 class Config(object):
     def __init__(self):
+        self.mysql_type = 'mysql'
         self.mysql_user = 'social'
         self.mysql_password = 'YangHaiTao3135'
         self.mysql_host = "39.100.73.172"
