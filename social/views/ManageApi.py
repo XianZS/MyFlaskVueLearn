@@ -1,6 +1,8 @@
-from flask.views import MethodView
+from .Base import Base
+
+from flask import jsonify
 
 
-class ManageApi(MethodView):
+class ManageApi(Base):
     def get(self):
-        return "True"
+        return jsonify({"code": 200, "msg": "ok"})
