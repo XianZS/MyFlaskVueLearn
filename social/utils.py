@@ -3,7 +3,6 @@
     邮件
 """
 import smtplib
-from email.mime.message import MIMEMessage
 # 导入文件文本
 from email.mime.text import MIMEText
 # 导入邮件分类
@@ -14,35 +13,37 @@ from email.mime.multipart import MIMEMultipart
 class SendEmail:
     def __init__(self):
         # 初始化邮箱数据
-        # 邮箱
-        self.__email = "3820105232@qq.com"
-        # 密钥
-        self.__password = "lkcyswstfgbmccba"
+        self.__sender_email = "SuperPinnacleOfficial@gmail.com"
+        self.__sender_password = "lgnk pqzd ilxu pihb"
+        self.__smtp_port = 587  # 对于Gmail
+        self.__smtp_server = "smtp.gmail.com"  # 例如：smtp.gmail.com
+        self.__smtp_port = 587
 
     def send_mail(self, _toUser, _title, _content):
-        # 构建邮件体
         msg = MIMEMultipart()
-        # 邮件标题
-        msg['Subject'] = _title
-        # 邮件发送者
-        msg['From'] = self.__email
-        # 邮件接收者
+        msg['From'] = self.__sender_email
         msg['To'] = _toUser
-        # 构建邮件内容
-        part = MIMEText('测试邮件', 'plain', 'utf-8')
-        msg.attach(part)
-        # 建立链接对象
-        s = smtplib.SMTP_SSL("smtp.qq.com", 465)
-        # 登陆邮箱
-        s.ehlo()
-        s.login(self.__email, self.__password)
+        msg['Subject'] = _title
+
+        # 邮件正文内容
+        msg.attach(MIMEText(_content, 'plain'))
 
         # 发送邮件
-        s.sendmail(self.__email, _toUser, msg.as_string())
-        # 关闭邮件
-        s.quit()
+        try:
+            server = smtplib.SMTP(self.__smtp_server, self.__smtp_port)
+            server.starttls()
+            server.login(self.__sender_email, self.__sender_password)
+            text = msg.as_string()
+            server.sendmail(self.__sender_email, _toUser, text)
+            server.quit()
+            print("邮件发送成功")
+        except Exception as e:
+            print(f"发送邮件时出错: {e}")
 
 
 if __name__ == '__main__':
     s = SendEmail()
-    s.send_mail("2038704030@qq.com", "测试一下", "脚本测试")
+    _toUser = input("请输入邮件地址 : ")
+    _title = input("请输入邮件标题 : ")
+    _content = input("请输入邮件内容 : ")
+    s.send_mail(_toUser, _title, _content)

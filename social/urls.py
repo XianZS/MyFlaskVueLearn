@@ -13,5 +13,9 @@ class _Url_ManageApi:
 
 
 class UrlsApi:
+    __urls_dict = dict()
+
     def __init__(self, flaskApp):
-        self.api = _Url_ManageApi(flaskApp)
+        self.__urls_dict = {
+            '/ManageApi': _Url_ManageApi(flaskApp)
+        }
