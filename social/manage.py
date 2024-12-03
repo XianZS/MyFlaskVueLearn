@@ -1,13 +1,15 @@
 """
     导入第三方包
 """
+import sys
+sys.path.append("..")
 from flask import Flask
 
 # 跨域，因为浏览器的同源策略，不允许跨域访问
 from flask_cors import CORS
 # 类视图
 # 导入蓝图模块
-from social.views import user_view, test_view
+from views import user_view, test_view
 
 """
     导入自定义包

@@ -14,6 +14,16 @@ from database import r
 
 
 # 邮件发送类
+def check_re(_toUser: str):
+    import re
+    # 匹配正则表达式
+    ex_email = re.compile(r'^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$')
+    res = ex_email.match(_toUser)
+    if res is None:
+        return False
+    return True
+
+
 class SendEmail:
     """
         邮箱创建类
@@ -27,6 +37,11 @@ class SendEmail:
         self.__smtp_server = "smtp.gmail.com"  # 例如：smtp.gmail.com
 
     def send_mail(self, _toUser: str, _title: str, _content: str):
+        """
+            发送邮件
+            false 代表发送失败
+            true 代表发送成功
+        """
         msg = MIMEMultipart()
         msg['From'] = self.__sender_email
         msg['To'] = _toUser
@@ -44,8 +59,10 @@ class SendEmail:
             server.sendmail(self.__sender_email, _toUser, text)
             server.quit()
             print("邮件发送成功")
+            return "True"
         except Exception as e:
             print(f"发送邮件时出错: {e}")
+            return False
 
 
 class CreateCode:

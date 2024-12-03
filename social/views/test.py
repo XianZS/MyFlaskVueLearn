@@ -18,9 +18,14 @@ test_view = Blueprint('test_view', __name__)
 """
 
 
-@test_view.route('/test/')
-def test():
-    return "test"
+@test_view.route('/test/', methods=['GET'])
+def test_get():
+    return "test_get"
+
+
+@test_view.route('/test/', methods=['POST'])
+def test_post():
+    return "test_post"
 
 
 @test_view.route('/show/')

@@ -13,7 +13,7 @@ class HttpApiTest:
         self.url = ''
         self.data = {}
 
-    # 测试 post 接口
+    # 测试有参数 post 接口
     def test_post(self, input_url, input_data):
         self.url = input_url
         self.data = input_data
@@ -21,7 +21,13 @@ class HttpApiTest:
         res_text = requests.post(self.url, data=self.data)
         return res_text.text
 
-    # 测试 get 接口
+    # 测试无参数 post 接口
+    def test_post_no_params(self, input_url):
+        self.url = input_url
+        res_text = requests.post(self.url)
+        return res_text.text
+
+    # 测试有参数 get 接口
     def test_get(self, input_url, input_data):
         self.url = input_url
         self.data = input_data
@@ -29,12 +35,15 @@ class HttpApiTest:
         res_text = requests.get(self.url, params=self.data)
         return res_text.text
 
+    # 测试无参数 get 接口
+    def test_get_no_params(self, input_url):
+        self.url = input_url
+        res_text = requests.get(self.url)
+        return res_text.text
+
 
 if __name__ == '__main__':
     HttpApi = HttpApiTest()
-    # 输入 url
-    test_url = input("请输入测试的 url 地址：")
-    # 请输入传入参数
-    test_email, test_passwd = input("请输入邮箱和密码").split()
-    res = HttpApi.test_post(test_url, {"email": test_email, "password": test_passwd})
-    print(res)
+    url = "http://192.168.71.98:5000/user_view/"
+    x = HttpApi.test_get(url, {"email": "3135989009@qq.com"})
+    print(x)
