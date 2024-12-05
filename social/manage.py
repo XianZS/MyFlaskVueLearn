@@ -2,6 +2,7 @@
     导入第三方包
 """
 import sys
+
 sys.path.append("..")
 from flask import Flask
 
@@ -9,7 +10,7 @@ from flask import Flask
 from flask_cors import CORS
 # 类视图
 # 导入蓝图模块
-from views import user_view, test_view
+from views import login_views
 
 """
     导入自定义包
@@ -42,10 +43,7 @@ db.init_app(app)
 """
     【3】 蓝图初始化；url 与 view 绑定关系添加到 app 之中
 """
-# 设置user_view蓝图的主路由为 ‘/user_view’
-app.register_blueprint(user_view, url_prefix="/user_view")
-# 设置test_view蓝图的主路由为 ‘/test_view’
-app.register_blueprint(test_view, url_prefix='/test_view')
+app.register_blueprint(login_views, url_prefix="/login")
 """
     【4】 跨域初始化，绑定 vue
 """
