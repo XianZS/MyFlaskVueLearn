@@ -8,6 +8,7 @@
     @NowThing: 
 """
 from flask import Blueprint
+from flask import request, render_template
 
 login_views = Blueprint('login', __name__)
 
@@ -27,4 +28,4 @@ def login_post():
 
 @login_views.route('/logout', methods=['GET', 'POST'])
 def loginout_get_post():
-    return "logout"
+    return "xxx"
